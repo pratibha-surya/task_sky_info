@@ -13,17 +13,15 @@ export const createProduct = async (req, res) => {
 
 export const getAllProducts = async (req, res) => {
   try {
-    const products = await Product.find()
-      .populate({
-        path: 'subcategory',
-        populate: { path: 'category' }
-      });
-    res.json(products);
+    const prods = await Product.find().populate({
+      path: 'subcategory',
+      populate: { path: 'category' }
+    });
+    res.json(prods);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
-
 export const updateProduct = async (req, res) => {
   try {
     const updated = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
